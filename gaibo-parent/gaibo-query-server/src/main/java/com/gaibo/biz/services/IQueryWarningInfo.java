@@ -7,4 +7,5 @@ package com.gaibo.biz.services;
  */
 public interface IQueryWarningInfo {
 
+	String queryWarning();
 }

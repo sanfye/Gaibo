@@ -7,4 +7,9 @@ package com.gaibo.biz.services;
  */
 public interface IQueryOrderInfo {
 
+	String queryOrderByCurrent();
+	
+	String queryOrderBySpecify(String startTime,String endTime);
+	
+	String queryOrderByHistory( String month);
 }

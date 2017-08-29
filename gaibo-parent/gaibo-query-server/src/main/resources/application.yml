@@ -1,0 +1,14 @@
+#端口配置：
+server:
+  port: 8180
+  
+#时间格式化
+spring:
+  profiles:
+    active: test ##设置环境信息
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+#时区设置(亚洲/上海)
+    time-zone: Asia/Shanghai
+  application:
+    name: gaibo-query-server 

@@ -19,10 +19,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.7</java.version>
-		<spring-cloud.version>Dalston.SR3</spring-cloud.version>
+		<!-- <spring-cloud.version>Dalston.SR3</spring-cloud.version> -->
 	</properties>
 
 	<dependencies>
+	<!-- 
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
@@ -39,9 +40,22 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
 		</dependency>
+		 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		
+	   <dependency>
+		    <groupId>commons-httpclient</groupId>
+		    <artifactId>commons-httpclient</artifactId>
+		    <version>3.1</version>
+		</dependency>
+		<!-- 
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
@@ -50,21 +64,39 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
-
+		 -->
+		<!-- <dependency>
+		    <groupId>org.apache.bval</groupId>
+		    <artifactId>bval-jsr303</artifactId>
+		    <version>0.5</version>
+		</dependency>
+		
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
+	        <groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+	        <version>5.2.4.Final</version>
 		</dependency>
+<dependency>
+    <groupId>javax.validation</groupId>
+    <artifactId>validation-api</artifactId>
+    <version>2.0.0.Final</version>
+</dependency>
+<dependency>
+    <groupId>javax.el</groupId>
+    <artifactId>javax.el-api</artifactId>
+    <version>3.0.0</version>
+</dependency> -->
+		 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
 
+	</dependencies>
+<!-- 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -76,7 +108,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
+ -->
 	<build>
 		<plugins>
 			<plugin>
