@@ -1,4 +1,4 @@
-package com.gaibo.biz.common.utils;
+package org.gaibo.common.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -6,6 +6,11 @@ import java.security.NoSuchAlgorithmException;
 
 import org.apache.commons.lang3.CharEncoding;
 
+/**
+ * MD5自动生成工具类
+ * @author sangwenhao
+ * @date 2017年8月30日
+ */
 public class MD5Utils {
 	
 	/**

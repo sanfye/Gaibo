@@ -1,13 +1,18 @@
 package com.gaibo.biz.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gaibo.biz.services.IQueryOrderInfo;
@@ -36,16 +41,19 @@ public class QueryOrderInfoControll {
 	public String queryOrderByCurrent(){
 		logger.info("进入 queryOrderByCurrent...... ");
 		
-		queryOrderInfo.queryOrderByCurrent();
-		
 		return queryOrderInfo.queryOrderByCurrent();
 	}
 	
 	@RequestMapping(value="/specify")
 	public String queryOrderBySpecify(@RequestParam(value="startTime") String startTime,@RequestParam(value="endTime") String endTime){
 		logger.info("进入 queryOrderBySpecify......\n >>>>>>>>>>>>>>>>startTime:{},endTime:{}",startTime,endTime);
-		
-		queryOrderInfo.queryOrderBySpecify(startTime, endTime);
+		//冗余代码
+		if(StringUtils.isBlank(startTime)||StringUtils.isBlank(endTime)){
+			Date date = new Date();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+			startTime =simpleDateFormat.format(DateUtils.addDays(date, -1)) ;
+			endTime = simpleDateFormat.format(date) ;
+		}
 		
 		return queryOrderInfo.queryOrderBySpecify(startTime, endTime);
 	}
@@ -54,8 +62,12 @@ public class QueryOrderInfoControll {
 	public String queryOrderByHistory(@PathVariable String month){
 		logger.info("进入 queryOrderByHistory......\n >>>>>>>>>>>>>>>>month:{}",month);
 		
-		queryOrderInfo.queryOrderByHistory(month);
-		
+		//冗余代码
+		if(StringUtils.isBlank(month)){
+			Date date = new Date();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMM");
+			month = simpleDateFormat.format(date) ;
+		}
 		
 		return queryOrderInfo.queryOrderByHistory(month);
 	}

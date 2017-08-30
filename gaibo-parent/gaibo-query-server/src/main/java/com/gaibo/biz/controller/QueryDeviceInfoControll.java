@@ -36,7 +36,7 @@ public class QueryDeviceInfoControll {
 	@RequestMapping("/device/{queryType}")
 	public @ResponseBody String queryDevice(@PathVariable String queryType){
 		logger.info("进入queryDevice......\n >>>>>>>>>>>>>>>>queryType:{}",queryType);
-		queryDeviceInfo.queryDevice(queryType);
+		
 		return queryDeviceInfo.queryDevice(queryType); 
 	}
 	

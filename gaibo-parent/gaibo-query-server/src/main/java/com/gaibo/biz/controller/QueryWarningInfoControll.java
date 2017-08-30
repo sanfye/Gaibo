@@ -34,8 +34,6 @@ public class QueryWarningInfoControll {
 	public @ResponseBody String queryWarning(){
 		logger.info("进入queryWarning......");
 		
-		queryWarningInfo.queryWarning() ;
-		
 		return queryWarningInfo.queryWarning() ;
 	}
 	

@@ -2,11 +2,11 @@ package com.gaibo.biz.common.utils;
 
 import java.io.IOException;
 
+import org.apache.commons.codec.CharEncoding;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.lang3.CharEncoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +22,7 @@ public class HttpHelper {
 			PostMethod postMethod = new PostMethod(url);
 			postMethod.getParams().setContentCharset(CharEncoding.UTF_8);
 			postMethod.getParams().setHttpElementCharset(CharEncoding.UTF_8);
-			
+
 			int status = httpClient.executeMethod(postMethod);
 			
 			if(HttpStatus.SC_OK == status){
