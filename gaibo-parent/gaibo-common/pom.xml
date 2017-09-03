@@ -7,9 +7,9 @@
     <artifactId>gaibo-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
+  
   <artifactId>gaibo-common</artifactId>
-  <name>gaibo-common</name>
-  <url>http://maven.apache.org</url>
+  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -19,10 +19,31 @@
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
-   <dependency>
-	    <groupId>org.apache.commons</groupId>
-	    <artifactId>commons-lang3</artifactId>
-	    <version>3.6</version>
+    <dependency>
+	    <groupId>commons-lang</groupId>
+	    <artifactId>commons-lang</artifactId>
+	    <version>2.6</version>
 	</dependency>
+	
   </dependencies>
+  
+  	<build>
+	  <finalName>gaibo-common</finalName>  
+		<plugins>
+			<!-- 
+			子模块中同样“不能直接用Spring-boot自带的maven-plugin”,或者直接依赖原maven-plugin或者去掉不用
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin> -->
+			 <!-- <plugin>  
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-compiler-plugin</artifactId>  
+                <configuration>  
+                    <source>1.7</source>  
+                    <target>1.7</target>  
+                </configuration>  
+            </plugin>  -->
+		</plugins>
+	</build>
 </project>

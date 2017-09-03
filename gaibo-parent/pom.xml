@@ -35,7 +35,8 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+		
+			<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
@@ -51,11 +52,33 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
 		</dependency>
-	
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		
+	   <dependency>
+		    <groupId>commons-httpclient</groupId>
+		    <artifactId>commons-httpclient</artifactId>
+		    <version>3.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			</dependency>
 <!-- 
 		<dependency>
 			<groupId>mysql</groupId>
@@ -67,15 +90,11 @@
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 		 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+		
 	</dependencies>
 
 	<dependencyManagement>
-		<dependencies>
+		  <dependencies>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
@@ -83,15 +102,39 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<!-- 模块依赖 -->
+		<dependency>
+		    <groupId>com.gaibo</groupId>
+		    <artifactId>gaibo-common</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.gaibo</groupId>
+		    <artifactId>gaibo-query-server</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+			
 		</dependencies>
 	</dependencyManagement>
 
 	<build>
 		<plugins>
+			<!-- 
+			不能直接用Spring-boot自带的maven-plugin,否则子模块间依赖有问题
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			 -->
+            <plugin>  
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-compiler-plugin</artifactId>  
+                <configuration>  
+                    <source>1.7</source>  
+                    <target>1.7</target>  
+                </configuration>  
+            </plugin>  
 		</plugins>
 	</build>
 
