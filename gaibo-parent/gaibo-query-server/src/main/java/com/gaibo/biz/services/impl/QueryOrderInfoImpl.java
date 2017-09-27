@@ -2,12 +2,12 @@ package com.gaibo.biz.services.impl;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.gaibo.common.constants.GaiboConstant;
+import org.gaibo.common.utils.HttpHelper;
 import org.gaibo.common.utils.MD5Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.gaibo.biz.common.utils.HttpHelper;
 import com.gaibo.biz.services.IQueryOrderInfo;
 
 @Service
@@ -19,6 +19,13 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 	int QID = RandomUtils.nextInt(100000, 199999);
 
 	String url = GaiboConstant.URL + "/" + GaiboConstant.URI_QUERY + "?";
+	
+	@Override
+	public String queryOrderInfo(String startTime, String endTime){
+		logger.info("进入service层-queryOrderInfo ......");
+		
+		
+	}
 
 	@Override
 	public String queryOrderByCurrent() {

@@ -6,6 +6,8 @@ package com.gaibo.biz.services;
  * @date 2017-08-22
  */
 public interface IQueryOrderInfo {
+	
+	String queryOrderInfo();
 
 	String queryOrderByCurrent();
 	

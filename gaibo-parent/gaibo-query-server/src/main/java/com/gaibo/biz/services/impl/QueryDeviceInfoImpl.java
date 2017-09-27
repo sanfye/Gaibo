@@ -3,12 +3,12 @@ package com.gaibo.biz.services.impl;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.gaibo.common.constants.GaiboConstant;
+import org.gaibo.common.utils.HttpHelper;
 import org.gaibo.common.utils.MD5Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.gaibo.biz.common.utils.HttpHelper;
 import com.gaibo.biz.services.IQueryDeviceInfo;
 
 @Service

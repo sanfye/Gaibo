@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import org.apache.commons.lang3.CharEncoding;
+import org.apache.commons.codec.CharEncoding;
 
 /**
  * MD5自动生成工具类

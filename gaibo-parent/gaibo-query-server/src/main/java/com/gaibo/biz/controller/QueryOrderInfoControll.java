@@ -10,8 +10,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,6 +45,23 @@ public class QueryOrderInfoControll {
 		
 		return queryOrderInfo.queryOrderByCurrent();
 	}
+	
+	@RequestMapping(value="/orderInfo",method = {RequestMethod.GET,RequestMethod.POST})
+	public String queryOrderInfo(@RequestParam(value="startTime") String startTime,@RequestParam(value="endTime") String endTime){
+		Date date = new Date();
+		//冗余代码
+		if(StringUtils.isBlank(startTime)||StringUtils.isBlank(endTime)){
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+			startTime =simpleDateFormat.format(DateUtils.addDays(date, -1)) ;
+			endTime = simpleDateFormat.format(date) ;
+		}
+		//时间格式处理
+		
+		
+		
+		return queryOrderInfo.queryOrderBySpecify(startTime, endTime) ;
+	}
+	
 	
 	@RequestMapping(value="/specify")
 	public String queryOrderBySpecify(@RequestParam(value="startTime") String startTime,@RequestParam(value="endTime") String endTime){

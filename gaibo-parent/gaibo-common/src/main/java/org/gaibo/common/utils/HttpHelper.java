@@ -1,4 +1,4 @@
-package com.gaibo.biz.common.utils;
+package org.gaibo.common.utils;
 
 import java.io.IOException;
 
