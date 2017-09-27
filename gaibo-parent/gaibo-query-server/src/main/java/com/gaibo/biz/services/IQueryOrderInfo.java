@@ -7,7 +7,7 @@ package com.gaibo.biz.services;
  */
 public interface IQueryOrderInfo {
 	
-	String queryOrderInfo();
+	String queryOrderInfo(String startTime, String endTime);
 
 	String queryOrderByCurrent();
 	

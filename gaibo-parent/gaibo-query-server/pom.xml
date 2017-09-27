@@ -95,6 +95,13 @@
 		    <artifactId>commons-lang3</artifactId>
 		    <version>3.6</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		    <version>1.2.38</version>
+		</dependency>
+		
 		<!-- 模块依赖 -->
 		<dependency>
 		    <groupId>com.gaibo</groupId>

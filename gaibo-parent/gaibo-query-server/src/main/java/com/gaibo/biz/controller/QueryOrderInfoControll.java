@@ -48,6 +48,7 @@ public class QueryOrderInfoControll {
 	
 	@RequestMapping(value="/orderInfo",method = {RequestMethod.GET,RequestMethod.POST})
 	public String queryOrderInfo(@RequestParam(value="startTime") String startTime,@RequestParam(value="endTime") String endTime){
+		logger.info("进入 queryOrderInfo......\n >>>>>>>>>>>>>>>>startTime:{},endTime:{}",startTime,endTime);
 		Date date = new Date();
 		//冗余代码
 		if(StringUtils.isBlank(startTime)||StringUtils.isBlank(endTime)){
@@ -55,11 +56,9 @@ public class QueryOrderInfoControll {
 			startTime =simpleDateFormat.format(DateUtils.addDays(date, -1)) ;
 			endTime = simpleDateFormat.format(date) ;
 		}
-		//时间格式处理
-		
-		
-		
-		return queryOrderInfo.queryOrderBySpecify(startTime, endTime) ;
+		String json = queryOrderInfo.queryOrderInfo(startTime, endTime) ;
+		logger.info("返回结果："+json);
+		return json ;
 	}
 	
 	
