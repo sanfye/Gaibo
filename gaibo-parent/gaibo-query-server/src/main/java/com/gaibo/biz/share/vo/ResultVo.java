@@ -13,7 +13,7 @@ public class ResultVo {
 	private String message = "" ;
 	private String errorInfo = "" ;
 	
-	private List<OrderInfoVo> orderInfoVos;
+	private List<OrderInfoVo> orderInfoVos = null ;
 	
 	public String getIsError() {
 		return isError;

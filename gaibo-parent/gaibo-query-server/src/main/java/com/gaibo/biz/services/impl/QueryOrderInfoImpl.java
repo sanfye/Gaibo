@@ -68,6 +68,9 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 				String param = startCalendar.get(Calendar.YEAR)+""+(startMoth < 10 ? "0" + (startMoth) : startMoth) ;
 				value = queryOrderByHistory(param);
 			}
+			
+			value = "{\"record\":[[33318,\"cash_order\",802,0,\"cash\",\"Wed, 01 Mar 2017 10:28:44 GMT\"],[33318,\"cash_order\",921,0,\"cash\",\"Wed, 01 Mar 2017 10:29:32 GMT\"]],\"status\":\"success\"}";
+			
 			JSONObject json = (JSONObject) JSONObject.parse(value);
 			JetinnoResultVo resultVos = JSON.parseObject(value, JetinnoResultVo.class);
 			
@@ -78,10 +81,11 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 				OrderInfoVo vo = new OrderInfoVo();
 				vo.setMachineNo(list.get(0));
 				vo.setOrderNo(list.get(1));
+				vo.setProductCode(list.get(2));
 				vo.setProductName(ProductInfoMap.getProductInfo(list.get(2)));
 				vo.setPrice(StringUtils.defaultString(list.get(3), "-1"));
 				vo.setPayWay(PayWayMap.getPayWay(list.get(4)));
-				vo.setOrderTime(simpleDateFormat.parse(simpleDateFormat.format(list.get(5))));
+				vo.setOrderTime(simpleDateFormat.parse(simpleDateFormat.format(new Date(list.get(5)))));
 				results.add(vo) ;
 			}
 			resultVo.setOrderInfoVos(results);
