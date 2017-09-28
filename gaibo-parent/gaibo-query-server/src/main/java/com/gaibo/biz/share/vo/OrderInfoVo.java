@@ -36,7 +36,7 @@ public class OrderInfoVo {
 	/**
 	 * 订单日期
 	 */
-	private Date orderTime ;
+	private String orderTime ;
 	
 	public String getMachineNo() {
 		return machineNo;
@@ -74,13 +74,11 @@ public class OrderInfoVo {
 	public void setPayWay(String payWay) {
 		this.payWay = payWay;
 	}
-	public Date getOrderTime() {
+	public String getOrderTime() {
 		return orderTime;
 	}
-	public void setOrderTime(Date orderTime) {
+	public void setOrderTime(String orderTime) {
 		this.orderTime = orderTime;
 	}
-	
-	
 	
 }

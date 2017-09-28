@@ -1,5 +1,7 @@
 package com.gaibo.biz.services.impl;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 	 * @date 2017年9月27日
 	 * @see com.gaibo.biz.services.IQueryOrderInfo#queryOrderInfo(java.lang.String, java.lang.String)
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	public String queryOrderInfo(String startTime, String endTime) {
 		logger.info("进入service层-queryOrderInfo ......");
@@ -69,7 +72,7 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 				value = queryOrderByHistory(param);
 			}
 			
-			value = "{\"record\":[[33318,\"cash_order\",802,0,\"cash\",\"Wed, 01 Mar 2017 10:28:44 GMT\"],[33318,\"cash_order\",921,0,\"cash\",\"Wed, 01 Mar 2017 10:29:32 GMT\"]],\"status\":\"success\"}";
+//			value = "{\"record\":[[33318,\"cash_order\",802,14,\"cash\",\"Wed, 01 Mar 2017 10:28:44 GMT\"],[33318,\"cash_order\",921,123,\"cash\",\"Wed, 01 Mar 2017 10:29:32 GMT\"]],\"status\":\"success\"}";
 			
 			JSONObject json = (JSONObject) JSONObject.parse(value);
 			JetinnoResultVo resultVos = JSON.parseObject(value, JetinnoResultVo.class);
@@ -83,9 +86,9 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 				vo.setOrderNo(list.get(1));
 				vo.setProductCode(list.get(2));
 				vo.setProductName(ProductInfoMap.getProductInfo(list.get(2)));
-				vo.setPrice(StringUtils.defaultString(list.get(3), "-1"));
+				vo.setPrice(new BigDecimal(StringUtils.defaultString(list.get(3), "-1")).divide(BigDecimal.valueOf(100)).setScale(1,BigDecimal.ROUND_HALF_UP).toPlainString());
 				vo.setPayWay(PayWayMap.getPayWay(list.get(4)));
-				vo.setOrderTime(simpleDateFormat.parse(simpleDateFormat.format(new Date(list.get(5)))));
+				vo.setOrderTime(simpleDateFormat.format(new Date(list.get(5))));
 				results.add(vo) ;
 			}
 			resultVo.setOrderInfoVos(results);
@@ -116,6 +119,7 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 		logger.info(" >>>>>>>>>>>>>>>>uri:{}",  uri);
 
 		String response = HttpHelper.execute(url +uri);
+		
 		return response;
 	}
 
@@ -125,18 +129,18 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 
 		// QID=100002&QLEVEL=SPECIFY&STARTTIME=20170329000000&ENDTIME=20170329235959&USERNAME=user&MAC=167f80431828fbed670dfa6a7e715b5e
 		// md5校验顺序：QID=100002&USERNAME=user&PASSWORD=password&QLEVEL=SPECIFY
-		StringBuilder uri = new StringBuilder("QID=").append(QID)
+		StringBuilder uri = new StringBuilder("QID=").append("100002")
 				.append("&USERNAME=").append(GaiboConstant.USERNAME)
 				.append("&PASSWORD=").append(GaiboConstant.PASSWORD)
 				.append("&QLEVEL=SPECIFY");
 
 		String mac = MD5Utils.getMD5HEX(uri.toString());
 
-		uri.append("&MAC=").append(mac) ;
-
-		logger.info(" >>>>>>>>>>>>>>>>uri:{}",  uri);
+		uri.append("&MAC=").append(mac).append("&STARTTIME=").append(startTime)
+			.append("&ENDTIME=").append(endTime);
 
 		String response = HttpHelper.execute(url +uri);
+		logger.info("url>>>>>>>>>>>>>>url:"+(url+uri));
 		return response;
 	}
 
@@ -160,10 +164,8 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 
 		String mac = MD5Utils.getMD5HEX(uri.toString());
 
-		uri.append("&MAC=").append(mac) ;
+		uri.append("&MAC=").append(mac).append("&MONTH=").append(month) ;
 
-		logger.info(" >>>>>>>>>>>>>>>>uri:{}",  uri);
-		
 		logger.info("url:"+url+uri);
 
 		String response = HttpHelper.execute(url +uri);
