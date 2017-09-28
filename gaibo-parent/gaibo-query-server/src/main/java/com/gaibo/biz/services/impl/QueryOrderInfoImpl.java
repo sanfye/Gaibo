@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -80,6 +81,7 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 			List<OrderInfoVo> results = new ArrayList<OrderInfoVo>();
 			
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			
 			for(List<String> list : resultVos.getRecord()){
 				OrderInfoVo vo = new OrderInfoVo();
 				vo.setMachineNo(list.get(0));
@@ -88,7 +90,7 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 				vo.setProductName(ProductInfoMap.getProductInfo(list.get(2)));
 				vo.setPrice(new BigDecimal(StringUtils.defaultString(list.get(3), "-1")).divide(BigDecimal.valueOf(100)).setScale(1,BigDecimal.ROUND_HALF_UP).toPlainString());
 				vo.setPayWay(PayWayMap.getPayWay(list.get(4)));
-				vo.setOrderTime(simpleDateFormat.format(new Date(list.get(5))));
+				vo.setOrderTime(simpleDateFormat.format(new Date(list.get(5)+"+0800")));
 				results.add(vo) ;
 			}
 			resultVo.setOrderInfoVos(results);
