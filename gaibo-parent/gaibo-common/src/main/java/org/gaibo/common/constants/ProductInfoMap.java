@@ -15,6 +15,26 @@ public class ProductInfoMap {
 	private static final Map<String,String> productInfoMap = new HashMap<String,String>();
 	
 	static{
+		productInfoMap.put("102", "卡布奇诺");
+		productInfoMap.put("284", "摩卡");
+		productInfoMap.put("246", "拿铁");
+		productInfoMap.put("122", "维也纳咖啡");
+		productInfoMap.put("240", "玛琪雅朵");
+		productInfoMap.put("148", "煎咖啡");
+		productInfoMap.put("931", "经典美式冰咖");
+		productInfoMap.put("204", "意式长咖啡");
+		productInfoMap.put("103", "意式黑咖啡");
+		productInfoMap.put("951", "长岛冰茶");
+		productInfoMap.put("147", "清香鲜萃茶");
+		productInfoMap.put("127", "英式皇家奶茶");
+		productInfoMap.put("146", "丝袜奶茶");
+		productInfoMap.put("104", "鸳鸯奶茶");
+		productInfoMap.put("811", "醇香牛奶");
+		productInfoMap.put("802", "牛奶巧克力");
+		productInfoMap.put("800", "香浓巧克力");
+		
+		
+		/*
 		productInfoMap.put("101", "卡布奇诺");
 		productInfoMap.put("102", "卡布奇诺加糖");
 		productInfoMap.put("103", "卡布奇诺加糖");
@@ -104,8 +124,9 @@ public class ProductInfoMap {
 		productInfoMap.put("957", "冰荔枝");
 		productInfoMap.put("958", "冰黄桃");
 		productInfoMap.put("843", "巧克力牛奶加糖");
+		*/
 	}
-			
+
 	public static String getProductInfo(String key){
 		String productInfo = productInfoMap.get(key);
 		if(StringUtils.isBlank(productInfo)){
