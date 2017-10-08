@@ -1,5 +1,7 @@
 package com.gaibo.biz.services;
 
+import java.util.Map;
+
 /**
  * 报警信息查询接口
  * @author sangwenhao
@@ -7,5 +9,5 @@ package com.gaibo.biz.services;
  */
 public interface IQueryWarningInfo {
 
-	String queryWarning();
+	String queryWarning(Map<String,Object> map);
 }

@@ -1,5 +1,7 @@
 package com.gaibo.biz.services.impl;
 
+import java.util.Map;
+
 import org.apache.commons.lang3.RandomUtils;
 import org.gaibo.common.constants.GaiboConstant;
 import org.gaibo.common.utils.HttpHelper;
@@ -29,9 +31,12 @@ public class QueryWarningInfoImpl implements IQueryWarningInfo {
 	 * @see com.gaibo.biz.services.IQueryWarningInfo#queryWarning()
 	 */
 	@Override
-	public String queryWarning() {
+	public String queryWarning(Map<String,Object> map) {
 		logger.info("进入service层-queryOrderByCurrent ......");
-		
+		//用户名
+		String userName = (String) map.get("userName");
+		//密码
+		String password = (String) map.get("password");
 		
 		//md5校验顺序：QID=200001&USERNAME=user&PASSWORD=password&QLEVEL=WARNING
 		StringBuilder uri = new StringBuilder("QID=").append(QID)
@@ -43,10 +48,10 @@ public class QueryWarningInfoImpl implements IQueryWarningInfo {
 		String mac = MD5Utils.getMD5HEX(uri.toString());
 
 		uri.append("&MAC=").append(mac) ;
+		url = url +uri.toString().replace("&PASSWORD="+GaiboConstant.PASSWORD, "") ;
+		logger.info(" >>>>>>>>>>>>>>>>url:{}",  url);
 
-		logger.info(" >>>>>>>>>>>>>>>>uri:{}",  uri);
-
-		String response = HttpHelper.execute(url +uri);
+		String response = HttpHelper.execute(url);
 		return response;
 	}
 

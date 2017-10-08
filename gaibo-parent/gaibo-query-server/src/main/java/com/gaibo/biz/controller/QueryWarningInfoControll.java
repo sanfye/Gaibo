@@ -1,6 +1,10 @@
 package com.gaibo.biz.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,10 +35,17 @@ public class QueryWarningInfoControll {
 	}
 	
 	@RequestMapping("/warning")
-	public @ResponseBody String queryWarning(){
+	public @ResponseBody String queryWarning(HttpServletRequest request){
 		logger.info("进入queryWarning......");
 		
-		return queryWarningInfo.queryWarning() ;
+		Map<String, Object> map = new HashMap<String, Object>();
+		String userName = request.getParameter("userName");
+		String password = request.getParameter("password");
+		logger.info(">>>>>>>>>>>>>>>>username:"+userName+";password:"+password);
+		map.put("userName", userName);
+		map.put("password", password);
+		
+		return queryWarningInfo.queryWarning(map) ;
 	}
 	
 }

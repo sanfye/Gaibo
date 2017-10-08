@@ -1,5 +1,7 @@
 package com.gaibo.biz.services;
 
+import java.util.Map;
+
 /**
  * 订单信息查询接口
  * @author sangwenhao
@@ -7,11 +9,11 @@ package com.gaibo.biz.services;
  */
 public interface IQueryOrderInfo {
 	
-	String queryOrderInfo(String startTime, String endTime);
+	String queryOrderInfo(String startTime, String endTime,Map<String,Object> map);
 
-	String queryOrderByCurrent();
+	String queryOrderByCurrent(Map<String,Object> map);
 	
-	String queryOrderBySpecify(String startTime,String endTime);
+	String queryOrderBySpecify(String startTime,String endTime,Map<String,Object> map);
 	
-	String queryOrderByHistory( String month);
+	String queryOrderByHistory( String month,Map<String,Object> map);
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.RandomUtils;
@@ -48,7 +49,7 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 	 */
 	@SuppressWarnings("deprecation")
 	@Override
-	public String queryOrderInfo(String startTime, String endTime) {
+	public String queryOrderInfo(String startTime, String endTime,Map<String,Object> map) {
 		logger.info("进入service层-queryOrderInfo ......");
 		Calendar now = Calendar.getInstance();
 		String value = null ;
@@ -66,11 +67,11 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 			//如果是当前月，有时间范围的根据实际范围查询
 			int startMoth = (startCalendar.get(Calendar.MONTH)+1) ;
 			if((startCalendar.get(Calendar.YEAR) + startMoth) == (now.get(Calendar.YEAR) + now.get(Calendar.MONTH)+1)){
-				value = queryOrderBySpecify(startTime, endTime);
+				value = queryOrderBySpecify(startTime, endTime,map);
 			}else {
 				//根据时间范围查询 startTime所在月份的数据
 				String param = startCalendar.get(Calendar.YEAR)+""+(startMoth < 10 ? "0" + (startMoth) : startMoth) ;
-				value = queryOrderByHistory(param);
+				value = queryOrderByHistory(param,map);
 			}
 			
 //			value = "{\"record\":[[33318,\"cash_order\",802,14,\"cash\",\"Wed, 01 Mar 2017 10:28:44 GMT\"],[33318,\"cash_order\",921,123,\"cash\",\"Wed, 01 Mar 2017 10:29:32 GMT\"]],\"status\":\"success\"}";
@@ -105,9 +106,13 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 	}
 
 	@Override
-	public String queryOrderByCurrent() {
+	public String queryOrderByCurrent(Map<String,Object> map) {
 		logger.info("进入service层-queryOrderByCurrent ......");
-
+		//用户名
+		String userName = (String) map.get("userName");
+		//密码
+		String password = (String) map.get("password");
+		
 		// md5校验顺序：QID=100001&USERNAME=user&PASSWORD=password&QLEVEL=CURRENTT
 		StringBuilder uri = new StringBuilder("QID=").append(QID)
 				.append("&USERNAME=").append(GaiboConstant.USERNAME)
@@ -117,18 +122,23 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 		String mac = MD5Utils.getMD5HEX(uri.toString());
 		
 		uri.append("&MAC=").append(mac) ;
+		
+		url = url +uri.toString().replace("&PASSWORD="+GaiboConstant.PASSWORD, "") ;
+		logger.info(" >>>>>>>>>>>>>>>>url:{}",  url);
 
-		logger.info(" >>>>>>>>>>>>>>>>uri:{}",  uri);
-
-		String response = HttpHelper.execute(url +uri);
+		String response = HttpHelper.execute(url);
 		
 		return response;
 	}
 
 	@Override
-	public String queryOrderBySpecify(String startTime, String endTime) {
+	public String queryOrderBySpecify(String startTime, String endTime,Map<String,Object> map) {
 		logger.info("进入service层-queryOrderBySpecify ......");
-
+		//用户名
+		String userName = (String) map.get("userName");
+		//密码
+		String password = (String) map.get("password");
+		
 		// QID=100002&QLEVEL=SPECIFY&STARTTIME=20170329000000&ENDTIME=20170329235959&USERNAME=user&MAC=167f80431828fbed670dfa6a7e715b5e
 		// md5校验顺序：QID=100002&USERNAME=user&PASSWORD=password&QLEVEL=SPECIFY
 		StringBuilder uri = new StringBuilder("QID=").append("100002")
@@ -140,9 +150,11 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 
 		uri.append("&MAC=").append(mac).append("&STARTTIME=").append(startTime)
 			.append("&ENDTIME=").append(endTime);
+		
+		url = url +uri.toString().replace("&PASSWORD="+GaiboConstant.PASSWORD, "") ;
+		logger.info(" >>>>>>>>>>>>>>>>url:{}",  url);
 
-		String response = HttpHelper.execute(url +uri);
-		logger.info("url>>>>>>>>>>>>>>url:"+(url+uri));
+		String response = HttpHelper.execute(url);
 		return response;
 	}
 
@@ -153,10 +165,14 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 	 * @see com.gaibo.biz.services.IQueryOrderInfo#queryOrderByHistory(java.lang.String)
 	 */
 	@Override
-	public String queryOrderByHistory(String month) {
+	public String queryOrderByHistory(String month,Map<String,Object> map) {
 		logger.info("进入service层-queryOrderByHistory ......");
 		// QID=100003&QLEVEL=HISTORY&USERNAME=user&MONTH=201702&MAC=33a0fd9aa421b45aaafc4a0f39398109
-
+		//用户名
+		String userName = (String) map.get("userName");
+		//密码
+		String password = (String) map.get("password");
+		
 		// uri路径不能随意拼接
 		// md5校验顺序：QID=100003&USERNAME=user&PASSWORD=password&QLEVEL=HISTORY&MONTH=201702
 		StringBuilder uri = new StringBuilder("QID=").append(QID)
@@ -168,9 +184,10 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 
 		uri.append("&MAC=").append(mac).append("&MONTH=").append(month) ;
 
-		logger.info("url:"+url+uri);
+		url = url +uri.toString().replace("&PASSWORD="+GaiboConstant.PASSWORD, "") ;
+		logger.info(" >>>>>>>>>>>>>>>>url:{}",  url);
 
-		String response = HttpHelper.execute(url +uri);
+		String response = HttpHelper.execute(url);
 
 		return response;
 	}

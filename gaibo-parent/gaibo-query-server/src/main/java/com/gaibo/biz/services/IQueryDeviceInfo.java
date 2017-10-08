@@ -1,6 +1,6 @@
 package com.gaibo.biz.services;
 
-import org.springframework.web.bind.annotation.PathVariable;
+import java.util.Map;
 
 /**
  * 设备信息查询接口
@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 public interface IQueryDeviceInfo {
 
-	String queryDevice( String queryType);
+	String queryDevice( String queryType,Map<String,Object> map);
 }

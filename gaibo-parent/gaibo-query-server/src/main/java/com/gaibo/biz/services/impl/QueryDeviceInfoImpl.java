@@ -1,5 +1,7 @@
 package com.gaibo.biz.services.impl;
 
+import java.util.Map;
+
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.gaibo.common.constants.GaiboConstant;
@@ -31,8 +33,12 @@ public class QueryDeviceInfoImpl implements IQueryDeviceInfo {
 	 * @date 2017年8月30日
 	 */
 	@Override
-	public String queryDevice(String queryType) {
+	public String queryDevice(String queryType,Map<String,Object> map) {
 		logger.info("进入service层-queryDevice ......");
+		//用户名
+		String userName = (String) map.get("userName");
+		//密码
+		String password = (String) map.get("password");
 		
 		//md5校验顺序：QID=300001&USERNAME=user&PASSWORD=password&QLEVEL=INFO
 		StringBuilder uri = new StringBuilder("QID=").append(QID)
@@ -53,10 +59,11 @@ public class QueryDeviceInfoImpl implements IQueryDeviceInfo {
 		String mac = MD5Utils.getMD5HEX(uri.toString());
 
 		uri.append("&MAC=").append(mac) ;
+		String httpPath = url + uri ;
+		httpPath.replace("&PASSWORD="+GaiboConstant.PASSWORD, "").intern();
+		logger.info(" >>>>>>>>>>>>>>>>url:{}",  httpPath);
 
-		logger.info(" >>>>>>>>>>>>>>>>uri:{}",  uri);
-
-		String response = HttpHelper.execute(url +uri);
+		String response = HttpHelper.execute(httpPath);
 		
 		return response ;
 	}
