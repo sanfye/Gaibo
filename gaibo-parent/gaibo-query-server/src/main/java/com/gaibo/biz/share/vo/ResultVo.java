@@ -18,7 +18,11 @@ public class ResultVo {
 	 */
 	private List<OrderInfoDo> orderInfoVos = null ;
 	
-
+	/**
+	 * Device-Info 机器信息
+	 */
+	private List<DeviceInfoDo> deviceInfoDos = null ;
+	
 	public String getIsError() {
 		return isError;
 	}
@@ -42,6 +46,12 @@ public class ResultVo {
 	}
 	public void setOrderInfoVos(List<OrderInfoDo> orderInfoVos) {
 		this.orderInfoVos = orderInfoVos;
+	}
+	public List<DeviceInfoDo> getDeviceInfoDos() {
+		return deviceInfoDos;
+	}
+	public void setDeviceInfoDos(List<DeviceInfoDo> deviceInfoDos) {
+		this.deviceInfoDos = deviceInfoDos;
 	}
 	
 }

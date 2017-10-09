@@ -1,6 +1,10 @@
 package com.gaibo.biz.services.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -9,9 +13,15 @@ import org.gaibo.common.utils.HttpHelper;
 import org.gaibo.common.utils.MD5Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.gaibo.biz.services.IQueryDeviceInfo;
+import com.gaibo.biz.services.provide.UserMachineProvideSerice;
+import com.gaibo.biz.share.vo.DeviceInfoDo;
+import com.gaibo.biz.share.vo.DeviceInfoResultVo;
+import com.gaibo.biz.share.vo.ResultVo;
 
 @Service
 public class QueryDeviceInfoImpl implements IQueryDeviceInfo {
@@ -23,6 +33,9 @@ public class QueryDeviceInfoImpl implements IQueryDeviceInfo {
 	private static final Logger logger = LoggerFactory.getLogger(QueryDeviceInfoImpl.class);
 	
 	String url = GaiboConstant.URL+"/"+GaiboConstant.URI_DEVICE+"?";
+	
+	@Resource
+	private UserMachineProvideSerice userMachineProvideSerice ;
 	
 	//QID：000001~999999 随机数， 6 位长度，这里去300000~399999的随机数
 	int QID= RandomUtils.nextInt(300000, 399999);
@@ -63,9 +76,42 @@ public class QueryDeviceInfoImpl implements IQueryDeviceInfo {
 		httpPath.replace("&PASSWORD="+GaiboConstant.PASSWORD, "").intern();
 		logger.info(" >>>>>>>>>>>>>>>>url:{}",  httpPath);
 
-		String response = HttpHelper.execute(httpPath);
-		
-		return response ;
+		ResultVo resultVo = new ResultVo();
+		try {
+			String response = HttpHelper.execute(httpPath);
+			
+			List<DeviceInfoDo> deviceInfoDos = new ArrayList<>();
+			DeviceInfoResultVo deviceInfoResultVo = JSON.parseObject(response, DeviceInfoResultVo.class);
+			
+			List<String> machines = userMachineProvideSerice.findMachineByUser(userName);
+			boolean flag = false ;
+			if(StringUtils.equals(userName, GaiboConstant.USERNAME) ){
+				flag = true ;
+			}
+			if(deviceInfoResultVo != null && deviceInfoResultVo.getRecord()!= null){
+				for(List<String> list : deviceInfoResultVo.getRecord()){
+				//过滤用户机器-暂时
+				if(flag || machines.contains(list.get(0))){
+					DeviceInfoDo deviceInfoDo = new DeviceInfoDo();
+					deviceInfoDo.setMachineNo(list.get(0));
+					deviceInfoDo.setSiteSimple(list.get(1));
+					deviceInfoDo.setSiteDetail(list.get(2));
+					deviceInfoDo.setOnOffLine(Integer.valueOf(StringUtils.defaultString(list.get(3),"0")));
+					deviceInfoDos.add(deviceInfoDo);
+				}//if end
+			  }//for end
+			}//if end
+			
+			resultVo.setDeviceInfoDos(deviceInfoDos);
+		} catch (Exception e) {
+			resultVo.setIsError("true");
+			resultVo.setMessage("服务器出现异常");
+			resultVo.setErrorInfo(e.getMessage());
+			e.printStackTrace();
+		}
+		String result = JSON.toJSONString(resultVo) ;
+		logger.info("json:" + result);
+		return result ;
 	}
 
 }

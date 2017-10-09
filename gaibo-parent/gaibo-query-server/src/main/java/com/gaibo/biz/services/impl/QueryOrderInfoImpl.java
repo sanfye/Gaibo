@@ -102,7 +102,7 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 			*/
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String userName = (String) map.get("userName");
-			List<String> macines = userMachineProvideSerice.findMachineByUser(userName);
+			List<String> machines = userMachineProvideSerice.findMachineByUser(userName);
 			boolean flag = false ;
 			if(StringUtils.equals(userName, GaiboConstant.USERNAME) ){
 				flag = true ;
@@ -110,7 +110,7 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 			if(resultVos != null && resultVos.getRecord()!= null){
 				for(List<String> list : resultVos.getRecord()){
 				//过滤用户机器-暂时
-				if(flag || macines.contains(list.get(0))){
+				if(flag || machines.contains(list.get(0))){
 					OrderInfoDo vo = new OrderInfoDo();
 					vo.setMachineNo(list.get(0));
 					vo.setOrderNo(list.get(1));
@@ -176,8 +176,6 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 		StringBuilder uri = new StringBuilder("QID=").append("100002")
 				.append("&USERNAME=").append(GaiboConstant.USERNAME)
 				.append("&PASSWORD=").append(GaiboConstant.PASSWORD)
-				.append("&USERNAME=").append(userName)
-				.append("&PASSWORD=").append(password)
 				.append("&QLEVEL=SPECIFY");
 
 		String mac = MD5Utils.getMD5HEX(uri.toString());
