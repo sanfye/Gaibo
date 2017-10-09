@@ -13,8 +13,12 @@ public class ResultVo {
 	private String message = "" ;
 	private String errorInfo = "" ;
 	
-	private List<OrderInfoVo> orderInfoVos = null ;
+	/**
+	 * 订单信息
+	 */
+	private List<OrderInfoDo> orderInfoVos = null ;
 	
+
 	public String getIsError() {
 		return isError;
 	}
@@ -27,17 +31,17 @@ public class ResultVo {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public List<OrderInfoVo> getOrderInfoVos() {
-		return orderInfoVos;
-	}
-	public void setOrderInfoVos(List<OrderInfoVo> orderInfoVos) {
-		this.orderInfoVos = orderInfoVos;
-	}
 	public String getErrorInfo() {
 		return errorInfo;
 	}
 	public void setErrorInfo(String errorInfo) {
 		this.errorInfo = errorInfo;
+	}
+	public List<OrderInfoDo> getOrderInfoVos() {
+		return orderInfoVos;
+	}
+	public void setOrderInfoVos(List<OrderInfoDo> orderInfoVos) {
+		this.orderInfoVos = orderInfoVos;
 	}
 	
 }

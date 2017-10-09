@@ -12,6 +12,8 @@ public class JetinnoResultVo {
 	private List<List<String>> record ;
 	
 	private String status ;
+	
+	private String message ;
 
 	public List<List<String>> getRecord() {
 		return record;
@@ -27,5 +29,13 @@ public class JetinnoResultVo {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }

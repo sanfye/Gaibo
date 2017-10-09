@@ -48,10 +48,13 @@ public class QueryWarningInfoImpl implements IQueryWarningInfo {
 		String mac = MD5Utils.getMD5HEX(uri.toString());
 
 		uri.append("&MAC=").append(mac) ;
-		url = url +uri.toString().replace("&PASSWORD="+GaiboConstant.PASSWORD, "") ;
-		logger.info(" >>>>>>>>>>>>>>>>url:{}",  url);
 
-		String response = HttpHelper.execute(url);
+		String httpPath = url + uri ;
+		
+		httpPath.replace("&PASSWORD="+GaiboConstant.PASSWORD, "").intern();
+		logger.info(" >>>>>>>>>>>>>>>>url:{}",  httpPath);
+
+		String response = HttpHelper.execute(httpPath);
 		return response;
 	}
 
