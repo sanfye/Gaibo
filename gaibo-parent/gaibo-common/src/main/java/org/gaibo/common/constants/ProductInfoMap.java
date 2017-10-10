@@ -23,50 +23,39 @@ public class ProductInfoMap {
 		productInfoMap.put("148", "煎咖啡");
 		productInfoMap.put("931", "经典美式冰咖");
 		productInfoMap.put("204", "意式长咖啡");
-		productInfoMap.put("103", "意式黑咖啡");
+		productInfoMap.put("103", "意式黑咖啡(1/4)");
 		productInfoMap.put("951", "长岛冰茶");
 		productInfoMap.put("147", "清香鲜萃茶");
 		productInfoMap.put("127", "英式皇家奶茶");
+		productInfoMap.put("150", "花香清雅奶茶");
 		productInfoMap.put("146", "丝袜奶茶");
 		productInfoMap.put("104", "鸳鸯奶茶");
 		productInfoMap.put("811", "醇香牛奶");
 		productInfoMap.put("802", "牛奶巧克力");
 		productInfoMap.put("800", "香浓巧克力");
 		
-		
-		/*
 		productInfoMap.put("101", "卡布奇诺");
-		productInfoMap.put("102", "卡布奇诺加糖");
-		productInfoMap.put("103", "卡布奇诺加糖");
-		productInfoMap.put("104", "咖啡加茶");
 		productInfoMap.put("105", "美式咖啡");
 		productInfoMap.put("106", "美式咖啡加糖");
-		productInfoMap.put("204", "意式长咖啡");
 		productInfoMap.put("205", "意式长咖啡");
 		productInfoMap.put("206", "意式长咖啡");
 		productInfoMap.put("207", "意式长咖啡");
 		productInfoMap.put("210", "双份意式咖啡");
 		productInfoMap.put("220", "意式巧克力");
 		productInfoMap.put("237", "玛琪雅朵");
-		productInfoMap.put("240", "玛琪雅朵加糖");
 		productInfoMap.put("243", "拿铁");
 		productInfoMap.put("245", "抹茶拿铁");
-		productInfoMap.put("246", "拿铁加糖");
 		productInfoMap.put("283", "摩卡");
-		productInfoMap.put("284", "摩卡加糖");
 		productInfoMap.put("700", "红茶");
 		productInfoMap.put("701", "奶茶");
 		productInfoMap.put("702", "奶茶加糖");
 		productInfoMap.put("704", "甜红茶");
-		productInfoMap.put("800", "巧克力");
 		productInfoMap.put("801", "巧克力加糖");
-		productInfoMap.put("802", "巧克力牛奶");
 		productInfoMap.put("803", "巧克力奶茶");
 		productInfoMap.put("805", "玛琪雅朵加糖");
 		productInfoMap.put("806", "摩卡");
 		productInfoMap.put("807", "美式咖啡");
 		productInfoMap.put("810", "热牛奶");
-		productInfoMap.put("811", "热牛奶加糖");
 		productInfoMap.put("812", "热芒果");
 		productInfoMap.put("813", "雀巢柠檬茶");
 		productInfoMap.put("814", "牦牛奶");
@@ -91,7 +80,6 @@ public class ProductInfoMap {
 		productInfoMap.put("928", "冰糖雪梨");
 		productInfoMap.put("929", "蜂蜜柚子茶");
 		productInfoMap.put("930", "美式咖啡(冷饮)");
-		productInfoMap.put("931", "美式咖啡(冷饮)");
 		productInfoMap.put("932", "冰抹茶");
 		productInfoMap.put("933", "冰卡布奇诺");
 		productInfoMap.put("934", "冰拿铁");
@@ -124,13 +112,13 @@ public class ProductInfoMap {
 		productInfoMap.put("957", "冰荔枝");
 		productInfoMap.put("958", "冰黄桃");
 		productInfoMap.put("843", "巧克力牛奶加糖");
-		*/
+		
 	}
 
 	public static String getProductInfo(String key){
 		String productInfo = productInfoMap.get(key);
 		if(StringUtils.isBlank(productInfo)){
-			productInfo = "未知";
+			productInfo = key ;
 		}
 		return productInfo ;
 	}	
