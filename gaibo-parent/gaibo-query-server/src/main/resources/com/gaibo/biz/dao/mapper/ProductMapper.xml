@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 命名空间为DAO接口的路径，之前是domain对象的路径 -->
+<mapper namespace="com.gaibo.biz.dao.IProductDao" >
+
+   <resultMap id="resultMap"
+		type="com.gaibo.biz.share.vo.Product">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="productCode" jdbcType="VARCHAR" property="productCode" />
+		<result column="productEnglishName" jdbcType="VARCHAR" property="productEnglishName" />
+		<result column="productChineseName" jdbcType="VARCHAR" property="productChineseName" />
+	</resultMap>
+
+	<select id="queryProductList"  resultMap="resultMap" >
+		select 
+			t.id,
+			t.productCode,
+			t.productEnglishName,
+			t.productChineseName
+		from gable.product t
+	</select>	
+
+	
+</mapper>	

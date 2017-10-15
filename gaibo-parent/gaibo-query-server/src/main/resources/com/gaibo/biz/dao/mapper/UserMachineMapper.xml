@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 命名空间为DAO接口的路径，之前是domain对象的路径 -->
+<mapper namespace="com.gaibo.biz.dao.IUserMachineDao" >
+
+
+	<select id="findMachineByUser" parameterType="java.lang.String" resultType="java.lang.String" >
+		select ma.machineCode from gable.user_machine ma
+		 inner join gable.user u on ma.userId=u.ID
+		 <where>
+		 	u.name= #{userName,jdbcType=VARCHAR}
+		 </where>
+	</select>	
+
+	
+</mapper>	
