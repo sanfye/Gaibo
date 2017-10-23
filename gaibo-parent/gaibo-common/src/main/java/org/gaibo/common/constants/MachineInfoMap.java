@@ -20,11 +20,10 @@ public class MachineInfoMap {
 		machineInfoMap.put("12434", "天和大厦");
 	}
 	
-	
 	public static String getMachineInfo(String key){
 		String machineInfo = machineInfoMap.get(key);
 		if(StringUtils.isBlank(machineInfo)){
-			machineInfo = "未知";
+			machineInfo = key;
 		}
 		return machineInfo ;
 	}
