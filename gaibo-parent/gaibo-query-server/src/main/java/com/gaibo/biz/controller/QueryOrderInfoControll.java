@@ -67,10 +67,11 @@ public class QueryOrderInfoControll {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
+		String  selectmachineCode = request.getParameter("selectmachineCode");
 		logger.info(">>>>>>>>>>>>>>>>username:"+userName+";password:"+password);
 		map.put("userName", userName);
 		map.put("password", password);
-		
+		map.put("selectmachineCode", selectmachineCode);
 		String json = queryOrderInfo.queryOrderInfo(startTime, endTime,map) ;
 		logger.info("返回结果："+json);
 		return json ;

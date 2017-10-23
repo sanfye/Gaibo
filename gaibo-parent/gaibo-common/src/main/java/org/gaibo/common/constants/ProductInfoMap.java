@@ -4,13 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.InitializingBean;
 
 /**
  * 产品信息临时存放于map,后面改成数据库
  * @author 272311
  *
  */
-public class ProductInfoMap {
+public class ProductInfoMap{
 
 	private static final Map<String,String> productInfoMap = new HashMap<String,String>();
 	
@@ -121,6 +122,5 @@ public class ProductInfoMap {
 			productInfo = key ;
 		}
 		return productInfo ;
-	}	
-
+	}
 }

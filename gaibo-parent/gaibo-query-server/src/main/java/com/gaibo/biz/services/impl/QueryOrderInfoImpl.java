@@ -1,5 +1,7 @@
 package com.gaibo.biz.services.impl;
 
+import init.ProductInit;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,7 +15,6 @@ import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.gaibo.common.constants.GaiboConstant;
 import org.gaibo.common.constants.PayWayMap;
-import org.gaibo.common.constants.ProductInfoMap;
 import org.gaibo.common.utils.HttpHelper;
 import org.gaibo.common.utils.MD5Utils;
 import org.slf4j.Logger;
@@ -102,24 +103,35 @@ public class QueryOrderInfoImpl implements IQueryOrderInfo {
 			*/
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String userName = (String) map.get("userName");
+			String selectmachineCode = (String) map.get("selectmachineCode");//前段选择的机器编码默认的时“全部”
+			if(StringUtils.isEmpty(selectmachineCode)||"undefined".equals(selectmachineCode)){
+				selectmachineCode="ALL";
+			}
 			List<String> machines = userMachineProvideSerice.findMachineByUser(userName);
-			boolean flag = false ;
+			List<String>  machies1 = new ArrayList<String>();
+			machies1.add("ALL");
+			machies1.addAll(machines);
+			resultVo.setMachines(machies1);//机器编码
+			/*boolean flag = false ;
 			if(StringUtils.equals(userName, GaiboConstant.USERNAME) ){
 				flag = true ;
-			}
+			}*/
 			if(resultVos != null && resultVos.getRecord()!= null){
 				for(List<String> list : resultVos.getRecord()){
-				//过滤用户机器-暂时
-				if(flag || machines.contains(list.get(0))){
-					OrderInfoDo vo = new OrderInfoDo();
-					vo.setMachineNo(list.get(0));
-					vo.setOrderNo(list.get(1));
-					vo.setProductCode(list.get(2));
-					vo.setProductName(ProductInfoMap.getProductInfo(list.get(2)));
-					vo.setPrice(new BigDecimal(StringUtils.defaultString(list.get(3), "-1")).divide(BigDecimal.valueOf(100)).setScale(1,BigDecimal.ROUND_HALF_UP).toPlainString());
-					vo.setPayWay(PayWayMap.getPayWay(list.get(4)));
-					vo.setOrderTime(simpleDateFormat.format(new Date(list.get(5)+"+0800")));
-					results.add(vo) ;
+					//过滤用户机器-暂时
+				  if(machines.contains(list.get(0))){
+					  if(StringUtils.equals("ALL", selectmachineCode)
+							 || StringUtils.equals(selectmachineCode, list.get(0))){
+						  OrderInfoDo vo = new OrderInfoDo();
+						  vo.setMachineNo(list.get(0));
+						  vo.setOrderNo(list.get(1));
+						  vo.setProductCode(list.get(2));
+						  vo.setProductName(ProductInit.getProductInfo(list.get(2)));
+						  vo.setPrice(new BigDecimal(StringUtils.defaultString(list.get(3), "-1")).divide(BigDecimal.valueOf(100)).setScale(1,BigDecimal.ROUND_HALF_UP).toPlainString());
+						  vo.setPayWay(PayWayMap.getPayWay(list.get(4)));
+						  vo.setOrderTime(simpleDateFormat.format(new Date(list.get(5)+"+0800")));
+						  results.add(vo) ;
+					  }
 				}
 					
 				}

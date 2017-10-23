@@ -137,8 +137,13 @@ public class WarningInfoMap {
 		warnIngInfoMap.put("warning:02","缺水预警（尚余少量）");
 		warnIngInfoMap.put("warning:03","缺杯预警（尚余少量）");
 		warnIngInfoMap.put("WARNING:0A","大门打开");
+		warnIngInfoMap.put("WARNING:10003","茶不足预警");
+		warnIngInfoMap.put("WARNING:10006","可可不足预警");
 		warnIngInfoMap.put("WARNING:10009","咖啡豆不足预警");
+		warnIngInfoMap.put("WARNING:10012","奶茶不足");
 		warnIngInfoMap.put("WARNING:10016","缺糖预警");
+		
+		 
 
 	}
 	

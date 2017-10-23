@@ -22,7 +22,16 @@ public class ResultVo {
 	 * Device-Info 机器信息
 	 */
 	private List<DeviceInfoDo> deviceInfoDos = null ;
-	
+	/**
+	 * 警报信息
+	 * @return
+	 */
+	private List<WarningDto>  warningDtos = null;
+	/**
+	 * 机器编码
+	 * @return
+	 */
+	private List<String> machines;
 	public String getIsError() {
 		return isError;
 	}
@@ -53,5 +62,16 @@ public class ResultVo {
 	public void setDeviceInfoDos(List<DeviceInfoDo> deviceInfoDos) {
 		this.deviceInfoDos = deviceInfoDos;
 	}
-	
+	public List<WarningDto> getWarningDtos() {
+		return warningDtos;
+	}
+	public void setWarningDtos(List<WarningDto> warningDtos) {
+		this.warningDtos = warningDtos;
+	}
+	public List<String> getMachines() {
+		return machines;
+	}
+	public void setMachines(List<String> machines) {
+		this.machines = machines;
+	}
 }

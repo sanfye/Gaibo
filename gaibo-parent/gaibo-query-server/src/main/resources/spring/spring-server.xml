@@ -25,6 +25,18 @@
 	<bean id="userMachineProvideSerice" class="com.gaibo.biz.services.provide.UserMachineProvideSerice">
 		<property name="userMachineServer" ref="userMachineServer"></property>
 	</bean>
-		
-			
+	
+	<bean id="productService" class="com.gaibo.biz.server.impl.ProductService">
+	</bean>
+	
+	<bean id="productInit" class="init.ProductInit">
+
+	</bean>
+	<bean id="userInfoService" class="com.gaibo.biz.server.impl.UserInfoService"></bean>
+	
+	<bean id="warningServer" class="com.gaibo.biz.server.impl.WarningServer">
+
+	</bean>
+	
+	
 </beans>			
